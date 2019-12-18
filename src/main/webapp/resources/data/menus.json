@@ -1,0 +1,71 @@
+[{
+  "id": 1,
+  "title": "业务管理",
+  "children": [{
+    "id": 11,
+    "iframe": 1,
+    "iconCls":"icon-users",
+    "menuName": "企业管理",
+    "url": "buss/company/list.html"
+  },
+    {
+      "id": 12,
+      "iframe": 1,
+      "iconCls":"icon-users",
+      "menuName": "个体工商户管理",
+      "url": "buss/gtgsh/list.html"
+    }]
+},{
+    "id": 3,
+    "title": "自由职业者管理",
+    "children": [{
+      "id": 31,
+      "iframe": 1,
+      "iconCls":"icon-users",
+      "menuName": "业务操作",
+      "url": "buss/freelance/index.html"
+    },{
+      "id": 32,
+      "iframe": 1,
+      "iconCls":"icon-users",
+      "menuName": "申请登记表下载",
+      "url": "buss/freelance/download.html"
+    },{
+      "id": 33,
+      "iframe": 1,
+      "iconCls":"icon-users",
+      "menuName": "工商审核",
+      "url": "buss/freelance/busCheck.html"
+    },{
+      "id": 34,
+      "iframe": 1,
+      "iconCls":"icon-users",
+      "menuName": "批量申请个体工商户",
+      "url": "buss/freelance/list.html"
+    }]
+  },
+  {
+    "id": 9,
+    "title": "系统管理",
+    "children": [{
+      "id": 21,
+      "iframe": 1,
+      "iconCls":"icon-users",
+      "menuName": "用户管理",
+      "url": ""
+    },{
+      "id": 21,
+      "iframe": 1,
+      "iconCls":"icon-users",
+      "menuName": "角色管理",
+      "url": ""
+    },{
+      "id": 21,
+      "iframe": 1,
+      "iconCls":"icon-users",
+      "menuName": "权限管理",
+      "url": ""
+    }
+    ]
+  }
+]

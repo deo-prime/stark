@@ -1,0 +1,397 @@
+.wrap {
+    width: 100%;
+    height: 100%;
+    background: #fff;
+    margin: auto auto;
+    overflow: hidden;
+}
+
+.headline {
+    width: 970px;
+    padding-left: 30px;
+    height: auto;
+    background: #FFFFFF;
+    border-bottom: 1px solid #E4E4E4;
+    overflow: hidden;
+}
+
+
+
+    .headline a {
+        display: block;
+        padding-right: 15px;
+        margin-right: 15px;
+        border-right: 1px solid #000;
+    }
+/*选定目录显示*/
+.activeheader {
+    border-bottom: 2px solid #0063C5;
+}
+
+/*首页显示区*/
+.homeaccount {
+    background: #fff;
+    height: 100%;
+    padding-left: 50px;
+    box-sizing: border-box;
+}
+
+.homeaccount-headline {
+    width: 100%;
+}
+
+    .homeaccount-headline ul {
+        margin-top: 50px;
+        margin-left: 0px;
+        position: absolute;
+        height: 24px;
+    }
+
+        .homeaccount-headline ul li {
+            display: inline-block;
+            float: left;
+            padding-left: 10px;
+            height: 24px;
+            font-family: MicrosoftYaHei;
+            font-size: 18px;
+            color: #333333;
+        }
+
+    .homeaccount-headline img {
+        margin-top: 8px;
+        height: 16px;
+        width: 13px;
+    }
+
+/*申请开票*/
+
+.fbox1 {
+    margin-top: 61px;
+    width: 100%;
+    height: 38px;
+    position: relative;
+}
+
+    .fbox1 ul {
+        position: absolute;
+        width: 100%;
+        height: 38px;
+    }
+
+        .fbox1 ul li {
+            display: inline-block;
+            height: 38px;
+            padding-right: 20px;
+            font-family: MicrosoftYaHei;
+            font-size: 14px;
+            color: #333333;
+        }
+
+            .fbox1 ul li input {
+                width: 243px;
+                height: 38px;
+                font-family: MicrosoftYaHei;
+                font-size: 14px;
+                color: #333333;
+            }
+
+            .fbox1 ul li select {
+                width: 243px;
+                height: 38px;
+                font-family: MicrosoftYaHei;
+                font-size: 14px;
+                color: #333333;
+            }
+
+.fbox2 {
+    margin-top: 30px;
+    width: 100%;
+    height: 99px;
+    position: relative;
+}
+
+    .fbox2 ul li {
+        display: inline-block;
+        height: 38px;
+        padding-right: 20px;
+    }
+
+        .fbox2 ul li input {
+            width: 243px;
+            height: 38px;
+            font-family: MicrosoftYaHei;
+            font-size: 14px;
+            color: #333333;
+        }
+
+.fbox3 table {
+    border: 1px solid #808080;
+    width: 1440px;
+    height: 500px;
+    font-family: MicrosoftYaHei;
+    font-size: 14px;
+    color: #666666;
+}
+
+    .fbox3 table tr {
+        height: 55px;
+    }
+
+.trhead {
+    background: #008CFF;
+    font-family: MicrosoftYaHei;
+    font-size: 14px;
+    color: #FFFFFF;
+    height: 55px;
+}
+
+.fbox4 table {
+    border: 1px solid #808080;
+    width: 1440px;
+    height: 250px;
+    font-family: MicrosoftYaHei;
+    font-size: 14px;
+    color: #666666;
+}
+
+    .fbox4 table tr {
+        height: 55px;
+    }
+/*弹窗*/
+.shade {
+    width: 100%;
+    height: 100%;
+    position: fixed;
+    top: 0;
+    left: 0;
+    background: rgba(0,0,0,0.23);
+    z-index: 9999;
+}
+
+.pop-up {
+    position: fixed;
+    top: 10%;
+    left: 38%;
+    width: 1000px;
+    height: 1000px;
+    margin-left: -210px;
+    margin-top: -105px;
+    background: #FFFFFF;
+    z-index: 99999;
+}
+
+    .pop-up .title {
+        width: 80px;
+        height: 100px;
+        font-size: 14px;
+        text-align: left;
+        margin-left: 30px;
+        line-height: 100px;
+        background: #FFFFFF;
+        border-bottom: 1px solid #E4E4E4;
+        font-family: MicrosoftYaHei;
+        font-size: 18px;
+        color: #008CFF;
+        border-bottom: 2px solid #0063C5;
+        position: absolute;
+    }
+
+    .pop-up .title2 {
+        width: 80px;
+        height: 100px;
+        font-size: 14px;
+        text-align: left;
+        margin-left: 120px;
+        line-height: 100px;
+        background: #FFFFFF;
+        border-bottom: 1px solid #E4E4E4;
+        font-family: MicrosoftYaHei;
+        font-size: 18px;
+        color: #008CFF;
+        position: absolute;
+    }
+
+    .pop-up .box4 {
+        margin-top: 30px;
+        text-align: center;
+    }
+
+        .pop-up .box4 table {
+            position: absolute;
+            margin-top: 80px;
+            margin-left: 40px;
+            border: 1px solid #e9dede;
+            width: 900px;
+            height: 600px;
+            font-family: MicrosoftYaHei;
+            font-size: 14px;
+            color: #666666;
+        }
+
+            .pop-up .box4 table tr {
+                height: 40px;
+            }
+
+                .pop-up .box4 table tr th {
+                    text-align: left;
+                    padding-left: 50px;
+                }
+
+.titlehead {
+    text-align: left;
+    padding-left: 50px;
+    height: 55px;
+    font-family: MicrosoftYaHei;
+    font-size: 16px;
+    color: #333333;
+}
+
+/*邮寄地址*/
+.postaddress {
+    width: 80%;
+    height: 100%;
+}
+
+    .postaddress ul {
+        margin-top: 50px;
+        margin-left: 0px;
+        position: absolute;
+        height: 38px;
+    }
+
+        .postaddress ul li {
+            display: inline-block;
+            float: left;
+            margin-left: 20px;
+            height: 38px;
+            font-family: MicrosoftYaHei;
+            font-size: 14px;
+            color: #999999;
+            line-height: 38px;
+            width: 120px;
+        }
+
+            .postaddress ul li input {
+                line-height: 38px;
+                font-family: MicrosoftYaHei;
+                font-size: 14px;
+                color: #666666;
+            }
+/*线下汇款*/
+.xxbox1 {
+    width: 100%;
+    height: 201px;
+    position: relative;
+}
+
+    .xxbox1 ul {
+        margin-top: 50px;
+        margin-left: 0px;
+        position: absolute;
+        height: 21px;
+        width: 500px;
+    }
+
+        .xxbox1 ul li {
+            display: inline-block;
+            float: left;
+            margin-left: 20px;
+            height: 21px;
+            font-family: MicrosoftYaHei;
+            font-size: 14px;
+            color: #999999;
+            line-height: 21px;
+            width: 170px;
+        }
+
+.xxbox2 {
+    width: 100%;
+    height: 500px;
+    position: relative;
+}
+
+    .xxbox2 ul {
+        margin-top: 30px;
+        margin-left: 0px;
+        position: relative;
+        height: 30px;
+        width: 800px;
+    }
+
+        .xxbox2 ul li {
+            display: inline-block;
+            float: left;
+            margin-left: 20px;
+            height: 30px;
+            font-family: MicrosoftYaHei;
+            font-size: 14px;
+            color: #999999;
+            line-height: 30px;
+            width: 120px;
+        }
+
+            .xxbox2 ul li input {
+                line-height: 38px;
+                font-family: MicrosoftYaHei;
+                font-size: 14px;
+                color: #666666;
+                width: 314px;
+            }
+/*批付*/
+.pfheader {
+    width: 1520px;
+    height: 55px;
+    position: relative;
+    margin-top: 30px;
+    margin-left: 0px;
+}
+
+    .pfheader ul {
+        height: 55px;
+        width: 1520px;
+        position: relative;
+    }
+
+        .pfheader ul li {
+            display: inline-block;
+            font-family: MicrosoftYaHei;
+            font-size: 16px;
+            color: #666666;
+            line-height: 55px;
+            height: 55px;
+            width: 500px;
+            text-align: center;
+            border: 1px solid #666666;
+        }
+
+.pfbox1 {
+    width: 1520px;
+    height: 55px;
+    position: relative;
+    margin-top: 30px;
+    margin-left: 0px;
+}
+
+    .pfbox1 ul {
+        height: 55px;
+        width: 1520px;
+        position: relative;
+    }
+
+        .pfbox1 ul li {
+            display: inline-block;
+            font-family: MicrosoftYaHei;
+            font-size: 14px;
+            color: #666666;
+            line-height: 55px;
+            height: 55px;
+            width: 200px;
+            text-align: center;
+        }
+
+    .pfbox1 img {
+        margin-top: 45px;
+        height: 13px;
+        width: 13px;
+        line-height: 55px;
+    }

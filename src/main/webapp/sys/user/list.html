@@ -1,0 +1,278 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>用户列表</title>
+    <link rel="stylesheet" type="text/css" href="../../resources/jquery-easyui/1.7.0/themes/default/easyui.css">
+    <link rel="stylesheet" type="text/css" href="../../resources/jquery-easyui/1.7.0/themes/icon.css">
+    <link rel="stylesheet" type="text/css" href="../../resources/jquery-easyui/1.7.0/themes/color.css">
+    <link rel="stylesheet" type="text/css" href="../../resources/jquery-easyui/1.7.0/demo/demo.css">
+    <script type="text/javascript" src="../../resources/jquery-easyui/1.7.0/jquery.min.js"></script>
+    <script type="text/javascript" src="../../resources/jquery-easyui/1.7.0/jquery.easyui.min.js"></script>
+    <script type="text/javascript" src="../../resources/jquery-easyui/1.7.0/locale/easyui-lang-zh_CN.js"></script>
+    <script type="text/javascript">
+    
+    </script>
+</head>
+<body>
+	<table id="dg"></table>
+	<div id="toolbar">
+        <a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-add" plain="true" onclick="newUser()">新建用户</a>
+        <!-- 
+        <a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-edit" plain="true" onclick="editUser()">Edit User</a>
+        <a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-remove" plain="true" onclick="destroyUser()">Remove User</a>
+         -->
+    </div>
+    <div id="dlg" class="easyui-dialog" style="width:400px" data-options="closed:true,modal:true,border:'thin',buttons:'#dlg-buttons'">
+        <form id="fm" method="post" novalidate style="margin:0;padding:20px 50px">
+            <div style="margin-bottom:10px">
+                <input id="username" name="username" class="easyui-textbox" label="用户名:" style="width:100%">
+            </div>
+            <div style="margin-bottom:10px">
+                <input id="password" name="password" class="easyui-passwordbox" label="密码:" style="width:100%">
+            </div>
+            <div style="margin-bottom:10px">
+            	<input id="confirmPassword" name="confirmPassword" class="easyui-passwordbox" label="确认密码:" style="width:100%">
+            </div>
+            <div style="margin-bottom:10px">
+            	<label class="textbox-label textbox-label-before" style="text-align: left; height: 30px; line-height: 30px;">所属地区:</label><select class="easyui-combobox" id="citySelect" name="citySelect" prompt="市" style="width:35%"></select> <select class="easyui-combobox" id="countySelect" name="countySelect" prompt="区县" style="width:35%"></select>
+            	<!-- <select class="easyui-combobox" id="provinceSelect" name="provinceSelect" prompt="省" style="width:25%"></select> -->
+            </div>
+            <div style="margin-bottom:10px">
+                <input id="realname" name="realname" class="easyui-textbox" label="真实姓名:" style="width:100%">
+            </div>
+            <div style="margin-bottom:10px">
+                <input id="roleIdString" class="easyui-combotree" data-options="label:'角色:',labelPosition:'left',multiple:true" style="width:100%">
+           </div>
+            
+        </form>
+    </div>
+    <div id="dlg-buttons">
+        <a href="javascript:void(0)" class="easyui-linkbutton c6" iconCls="icon-ok" onclick="saveUser()" style="width:90px">保存</a>
+        <a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-cancel" onclick="javascript:$('#dlg').dialog('close')" style="width:90px">取消</a>
+    </div>
+    <script type="text/javascript">
+    	
+    	var currentProvinceCode = "320000000000";
+    	
+    	$(function() {
+    		initGrid();
+    		initRoleSelect();
+    		// initProvinceSelect();
+    		initCitySelect(currentProvinceCode);
+    	});
+    	
+    	function initProvinceSelect() {
+    		$('#provinceSelect').combobox({
+    		    url:'../../sys/region/tree',
+    		    valueField:'code',
+    		    textField:'name',
+    		    editable: false,
+    		    onSelect: function(rec){
+    	            /* var url = '../../sys/region/tree?parentCode='+rec.code;
+    	            $('#citySelect').combobox('reload', url); */
+    	            initCitySelect(rec.code);
+    	        },
+    	        onLoadSuccess: function() {
+    	        	// alert(1);
+    	        	/* var val = $(this).combobox("getData");
+    	        	for (var item in val[0]) {
+                        if (item == "id") {
+                            $(this).combobox("select", val[0][item]);
+                        }
+                    } */
+    	        	// $(this).combobox("select", val[0]["id"]);
+    	        	// $('#provinceSelect').combobox('select', '黑龙江省'); 
+    	        	// setTimeout(setDefaultProvinceSelect(), 5000);
+    	        }
+    		});
+    	}
+    	
+    	function setDefaultProvinceSelect() {
+    		var currentProvinceCode = "230000000000";
+    		$('#provinceSelect').combobox('setValue', currentProvinceCode);
+    		$('#provinceSelect').combobox('disable');
+    	}
+    	
+    	function initCitySelect(provinceCode) {
+    		$('#citySelect').combobox({
+    		    url:'../../sys/region/tree?parentCode=' + provinceCode,
+    		    valueField:'code',
+    		    textField:'name',
+    		    panelWidth: 200,
+    		    panelMaxWidth: 300,
+    		    panelHeight: 200,
+    		    onSelect: function(rec){
+    		    	initCountySelect(rec.code);
+    	        }
+    		});
+    	}
+    	
+    	function initCountySelect(cityCode) {
+    		if (cityCode == "") {
+    			$('#countySelect').combobox("clear");
+    			$('#countySelect').combobox("loadData", [{"code": "", "name": "请选择"}]);
+    		} else {
+    			$('#countySelect').combobox({
+        		    url:'../../sys/region/tree?parentCode=' + cityCode,
+        		    valueField:'code',
+        		    textField:'name',
+        		    panelWidth: 200,
+        		    panelMaxWidth: 300,
+        		    panelHeight: 200
+        		});
+    		}
+    	}
+    	
+    	function initGrid() {
+    		$('#dg').datagrid({
+    	        url:'../../sys/user/grid',
+    	        columns:[[
+    	        	{field:'id',title:'id',hidden: true},
+    	    		{field:'username',title:'用户名',width:200},
+    	    		{field:'realname',title:'真实姓名',width:200},
+    	    		{field:'statusText',title:'状态',width:200},
+    	    		{field:'lastUpdateTime',title:'最后更新时间',width:300},
+					{field:'operate', title: '操作', align: 'center', width:150, formatter: function(value, row, index) {
+						return '<a href="#" onclick="editUser(\'' + row.id + '\')">修改</a> | <a href="#" onclick="deleteUser(\'' + row.id + '\')">删除</a>' ; 
+					}}
+    	        ]],
+    	        rownumbers: true,
+    	        pagination: true,
+    	        toolbar: '#toolbar',
+    	        fit: true,
+		        singleSelect: true
+    	    });	
+    	}
+    	
+    	function initRoleSelect() {
+    		$('#roleIdString').combobox({
+    		    url:'../../sys/role/all',
+    		    valueField:'id',
+    		    textField:'name',
+    		    panelHeight: 150
+    		});
+    	}
+    
+        var url;
+        function newUser(){
+            $('#dlg').dialog('open').dialog('center').dialog('setTitle','新建用户');
+            $('#fm').form('clear');
+            url = '../../sys/user/add';
+        }
+        function editUser(id){
+            if (id){
+            	$.ajax({
+            		url : "../../sys/user/detail?id=" + id,
+            		dataType: "json",
+            		type: "post",
+            		success: function(data) {
+            			if (data.success) {
+            				$('#fm').form('clear');
+			                $('#dlg').dialog('open').dialog('center').dialog('setTitle','编辑用户');
+            				$('#fm').form('load',data.data);
+            				if (data.data.roleIdString.length > 0) {
+            					$('#roleIdString').combobox('setValues', data.data.roleIdString.split(","));
+            				}
+            				$("#citySelect").combobox('setValue', data.data.cityCode);
+            				$('#citySelect').combobox('setText', data.data.cityName);
+            				$("#countySelect").combobox('setValue', data.data.countyCode);
+            				$('#countySelect').combobox('setText', data.data.countyName);
+			                url = '../../sys/user/edit?id=' + id;
+            			} else {
+            				alert(data.message);
+            			}
+            		} 
+            	});
+                // $('#fm').form('load',row);
+            } else {
+            	showError("请选中一条记录");
+            }
+        }
+        
+        function saveUser(){
+        	
+        	var username = $("#username").val();
+        	var password = $("#password").val();
+        	var confirmPassword = $("#confirmPassword").val();
+        	var realname = $("#realname").val();
+        	var roleIdString = $('#roleIdString').combotree('getValue');
+        	var cityCode = $.trim($("#citySelect").combobox('getValue'));
+        	var countyCode = $.trim($("#countySelect").combobox('getValue'));
+        	
+        	if (username == "") {showError("请输入用户名"); return;}
+        	if (password != confirmPassword) {showError("两次密码需要填写一致"); return;}
+        	if (roleIdString == "") {showError("请选择角色"); return;}
+
+        	var regionCode = currentProvinceCode;
+        	if (cityCode != "") regionCode = cityCode;
+        	if (countyCode != "") regionCode = countyCode;
+        	
+        	$.ajax({
+        		url : url, 
+        		type : "post",
+        		dataType: "json",
+        		data: {
+        			"username": username,
+        			"password": password,
+        			"realname": realname,
+        			"roleIdString": roleIdString,
+        			"regionCode": regionCode
+        		},
+        		success: function(data) {
+        			if (data.success) {
+        				$('#dlg').dialog('close');        // close the dialog
+                        $('#dg').datagrid('reload');    // reload the user data
+        			} else {
+        				showError(data.message);
+        			}
+        		}
+        	});
+            /* $('#fm').form('submit',{
+                url: url,
+                onSubmit: function(){
+                    return $(this).form('validate');
+                },
+                success: function(result){
+                    var result = eval('('+result+')');
+                    if (result.errorMsg){
+                        $.messager.show({
+                            title: 'Error',
+                            msg: result.errorMsg
+                        });
+                    } else {
+                        $('#dlg').dialog('close');        // close the dialog
+                        $('#dg').datagrid('reload');    // reload the user data
+                    }
+                }
+            }); */
+        }
+        
+        function showError(message) {
+        	$.messager.alert({
+                title: '错误',
+                msg: message
+            });
+        }
+        
+        function deleteUser(id){
+            if (id){
+                $.messager.confirm('确认','是否确认删除用户?',function(r){
+                    if (r){
+                        $.post('../../sys/user/delete?userIds=' + id,{},function(result){
+                            if (result.success){
+                                $('#dg').datagrid('reload');    // reload the user data
+                            } else {
+                                showError(result.message)
+                            }
+                        },'json');
+                    }
+                });
+            } else {
+            	showError("请选中一条记录");
+            }
+        }
+        
+    </script>
+</body>
+</html>

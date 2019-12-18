@@ -1,0 +1,369 @@
+﻿body, div, dl, dt, dd, ul, ol, li, h1, h2, h3, h4, h5, h6, pre, form, fieldset, input, textarea, p, blockquote, th, td, iframe {
+    margin: 0;
+    padding: 0;
+}
+
+o, li {
+    list-style: none;
+}
+
+fieldset, img, iframe {
+    border: 0;
+    display: block;
+}
+
+h1, h2, h3, h4, h5, h6 {
+    font-size: 100%;
+    font-weight: normal;
+}
+
+a {
+    text-decoration: none
+}
+
+html, body {
+    font-family: "Helvetica Neue",Helvetica,Arial,"Microsoft Yahei","Hiragino Sans GB","Heiti SC","WenQuanYi Micro Hei",sans-serif;
+    font-size: 12px;
+    height: 100%;
+}
+
+.w {
+    width: 100%;
+    margin: 0 auto;
+    position: relative;
+}
+
+input:focus {
+    border: none;
+    outline: none;
+}
+
+.fl {
+    float: left;
+}
+
+.fr {
+    float: right;
+}
+
+
+/*按钮*/
+.btn {
+    display: block;
+    font-size: 14px;
+    width: 160px;
+    border-radius: 4px;
+    height: 40px;
+    line-height: 40px;
+    cursor: pointer;
+    text-align: center;
+    border-radius: 25px;
+}
+
+.btn_default {
+    background: #008CFF;
+    color: #fff;
+    border: 1px solid #C7C7CD;
+}
+
+.btn_red {
+    background: #ED4949;
+    color: #fff;
+    border: 1px solid #ED4949;
+}
+
+.btn_green {
+    background: #25CB77;
+    color: #fff;
+    border: 1px solid #25CB77;
+}
+
+/*字体颜色*/
+.orange {
+    color: #FF6600;
+}
+
+.gray {
+    color: #898989;
+}
+
+.loginer {
+    margin-right: 0px;
+    width: 90px;
+    float: right;
+    line-height: 90px;
+    font-family: MicrosoftYaHei;
+    font-size: 14px;
+    color: #333333;
+    height: 90px;
+}
+
+
+.centre {
+    width: 100%;
+    height: 90%;
+}
+
+
+
+/*底部版权*/
+
+.foot {
+    width: 100%;
+    height: 75px;
+    background: #fff;
+    border-top: 1px solid #C7C7CD;
+    line-height: 75px;
+    color: #000000;
+}
+
+    .foot span {
+        text-align: right;
+        display: inline-block;
+        float: right;
+    }
+
+        .foot span i {
+            color: #c7c7c7;
+            padding: 0 9px;
+        }
+
+    .foot p {
+        text-align: left;
+        float: left;
+    }
+
+/*手机端兼容*/
+@media screen and (min-width:320px) and (max-width:700px) {
+    .header {
+        height: 130px;
+    }
+
+    .w {
+        width: 90%;
+        margin: 0 auto;
+    }
+
+    .header ul {
+        width: 100%;
+        float: left;
+        margin-top: 15px;
+    }
+
+        .header ul li {
+            padding-left: 0;
+            padding-right: 5%;
+        }
+
+    .centre h3 {
+        font-size: 40px;
+    }
+
+    .centre p {
+        font-size: 22px;
+        width: 100%;
+    }
+
+    .centre .btn-box {
+        width: 310px;
+    }
+
+    .foot {
+        line-height: 30px;
+        text-align: center;
+        padding-top: 10px;
+        position: fixed;
+        bottom: 0;
+        left: 0;
+        height: 60px;
+    }
+
+        .foot span, .foot p {
+            text-align: center;
+            float: none;
+        }
+
+    .data-detail {
+        width: auto;
+    }
+}
+
+@media screen and (min-width:700px) and (max-width:990px) {
+    .w {
+        width: 90%;
+        margin: 0 auto;
+    }
+
+    .foot {
+        line-height: 30px;
+        text-align: center;
+        padding-top: 10px;
+        height: 75px;
+        border-top: 1px solid #C7C7CD;
+    }
+
+        .foot span, .foot p {
+            text-align: center;
+            float: none;
+        }
+
+    .data-detail {
+        width: auto;
+    }
+}
+
+.ListPage {
+    padding: 20px;
+}
+
+.InputTable {
+    margin-bottom: 20px;
+    font-size: 14px;
+}
+
+    .InputTable th {
+        font-weight: normal;
+    }
+
+    .InputTable td {
+        padding-right: 20px;
+    }
+
+    .InputTable input, .InputTable select {
+        height: 38px;
+        border: 1px solid #C7C7CD;
+    }
+
+        .InputTable input[type=submit] {
+            border: 1px solid #008cff;
+            color: #008cff;
+            width: 100px;
+            background: white;
+        }
+
+.InputTableArea {
+    padding-top: 50px;
+}
+
+    .InputTableArea dt, .InputTableArea dd {
+        float: left;
+        height: 40px;
+        line-height: 40px;
+        color: #999999;
+        font-size: 14px;
+    }
+
+    .InputTableArea dl {
+        width: 300px;
+    }
+
+    .InputTableArea dt {
+        width: 100px;
+        margin-bottom: 20px;
+    }
+
+    .InputTableArea dd {
+        width: 200px;
+        margin-bottom: 20px;
+    }
+
+        .InputTableArea dd input {
+            width: 198px;
+            height: 38px;
+            border: 1px solid #a9a9a9;
+            color: #666;
+            padding-left: 5px;
+        }
+
+.InfoTable {
+    border-collapse: collapse;
+    border: 1px solid #e9e9e9;
+    padding: 0;
+    width: 98%;
+    margin: auto;
+}
+
+    .InfoTable td, .InfoTable th {
+        border: 1px solid #e9e9e9;
+        height: 40px;
+        line-height: 40px;
+    }
+
+    .InfoTable th {
+        width: 15%;
+        font-weight: normal;
+        background: #f3f8fe;
+        text-align: right;
+        padding-right: 10px;
+    }
+
+    .InfoTable td {
+        width: 35%;
+        text-align: left;
+        padding-left: 10px;
+    }
+
+.ListTable {
+    font-size: 14px;
+    width: 100%;
+    border: 1px solid #C7C7CD;
+    margin-bottom: 20px;
+}
+
+    .ListTable th, .ListTable td {
+        height: 56px;
+        border-left: 1px solid #C7C7CD;
+        border-right: 1px solid #C7C7CD;
+        border-top: 0px;
+        border-bottom: 0px;
+    }
+
+    .ListTable th {
+        background: #008cff;
+        color: white;
+        font-weight: normal;
+    }
+
+    .ListTable td {
+        padding: 0px 10px;
+    }
+
+    .ListTable tr:nth-of-type(odd) {
+        background: #f3f8fe;
+    }
+
+.RowLinkBtn li {
+    list-style: none;
+    float: left;
+    margin-right: 20px;
+}
+
+.FuncBtnArea {
+    padding: 20px 50px 0px 50px;
+}
+
+    .FuncBtnArea a {
+        float: right;
+        display: block;
+        width: 150px;
+        height: 40px;
+        background: #008cff;
+        color: white;
+        font-size: 14px;
+        line-height: 40px;
+        text-align: center;
+        border-radius: 30px;
+    }
+
+.clearfix:after, .clearfix:before {
+    content: "";
+    display: table;
+}
+
+.clearfix:after {
+    clear: both;
+}
+
+.clearfix {
+    *zoom: 1;
+}

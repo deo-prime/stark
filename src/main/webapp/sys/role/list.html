@@ -1,0 +1,227 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>角色列表</title>
+    <link rel="stylesheet" type="text/css" href="../../resources/jquery-easyui/1.7.0/themes/default/easyui.css">
+    <link rel="stylesheet" type="text/css" href="../../resources/jquery-easyui/1.7.0/themes/icon.css">
+    <link rel="stylesheet" type="text/css" href="../../resources/jquery-easyui/1.7.0/themes/color.css">
+    <link rel="stylesheet" type="text/css" href="../../resources/jquery-easyui/1.7.0/demo/demo.css">
+    <script type="text/javascript" src="../../resources/jquery-easyui/1.7.0/jquery.min.js"></script>
+    <script type="text/javascript" src="../../resources/jquery-easyui/1.7.0/jquery.easyui.min.js"></script>
+    <script type="text/javascript" src="../../resources/jquery-easyui/1.7.0/locale/easyui-lang-zh_CN.js"></script>
+    <script type="text/javascript">
+    
+    </script>
+</head>
+<body>
+	<table id="dg"></table>
+	<div id="toolbar">
+        <a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-add" plain="true" onclick="newrole()">新建角色</a>
+        <!-- 
+        <a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-edit" plain="true" onclick="editrole()">Edit role</a>
+        <a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-remove" plain="true" onclick="destroyrole()">Remove role</a>
+         -->
+    </div>
+    
+    
+    <div id="dlg" class="easyui-dialog" style="width:400px" data-options="closed:true,modal:true,border:'thin',buttons:'#dlg-buttons'">
+        <form id="fm" method="post" novalidate style="margin:0;padding:20px 50px">
+            <div style="margin-bottom:10px">
+            	<input id="code" name="code" class="easyui-textbox" label="角色编码:" style="width:100%">
+            </div>
+            <div style="margin-bottom:10px">
+                <input id="name" name="name" class="easyui-textbox" label="角色名称:" style="width:100%">
+            </div>
+            <div style="margin-bottom:10px">
+                <input id="auth" class="easyui-combotree" data-options="label:'配置权限:',multiple:true" style="width:100%">
+            </div>
+        </form>
+    </div>
+    <div id="dlg-buttons">
+        <a href="javascript:void(0)" class="easyui-linkbutton c6" iconCls="icon-ok" onclick="saverole()" style="width:90px">保存</a>
+        <a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-cancel" onclick="javascript:$('#dlg').dialog('close')" style="width:90px">取消</a>
+    </div>
+    
+    <script type="text/javascript">
+    	
+	    var tree = null;
+		// var nodes = tree.tree('getChecked', ['checked','indeterminate']);
+	
+    	$(function() {
+    		initGrid();
+    		// initRoleSelect();
+    		initAuthTree(); 
+    	});
+    	
+    	function initAuthTree() {
+    		$.ajax({
+        		url : "../../sys/function/tree",
+        		dataType: "json",
+        		type: "post",
+        		success: function(data) {
+        			if (data.success) {
+        				$('#auth').combotree({
+        	    		    data: data.data,
+        	    		    panelHeight: 200
+        	    		});
+        				tree = $('#auth').combotree('tree');
+        			} else {
+        				alert(data.message);
+        			}
+        		} 
+        	});
+    		
+    	}
+    	
+    	
+    	function initGrid() {
+    		$('#dg').datagrid({
+    	        url:'../../sys/role/grid',
+    	        columns:[[
+    	        	{field:'id',title:'id',hidden: true},
+    	    		{field:'code',title:'角色编码',width:200},
+    	    		{field:'name',title:'角色名称',width:200}, 
+					{field:'operate', title: '操作', align: 'center', width:100, formatter: function(value, row, index) {
+						var html = '<a href="#" onclick="editrole(\'' + row.id + '\')">修改</a>' 
+						+ ' | <a href="#" onclick="deleterole(\'' + row.id + '\')">删除</a>';
+						return html;
+					}}
+    	        ]],
+    	        rownumbers: true,
+    	        pagination: true,
+    	        toolbar: '#toolbar',
+    	        fit: true,
+		        singleSelect: true
+    	    });	
+    	}
+    	
+    	
+    	function initRoleSelect() {
+    		$('#roleIdString').combobox({
+    		    url:'../../sys/role/all',
+    		    valueField:'id',
+    		    textField:'name',
+    		    panelHeight: 150
+    		});
+    	}
+    
+        var url;
+        function newrole(){
+            $('#dlg').dialog('open').dialog('center').dialog('setTitle','新建角色');
+            $('#fm').form('clear');
+            url = '../../sys/role/add';
+        }
+        function editrole(id){
+            if (id){
+            	$.ajax({
+            		url : "../../sys/role/detail?id=" + id,
+            		dataType: "json",
+            		type: "post",
+            		success: function(data) {
+            			if (data.success) {
+            				$('#fm').form('clear');
+			                $('#dlg').dialog('open').dialog('center').dialog('setTitle','编辑角色');
+            				$('#fm').form('load',data.data);
+            				$('#auth').combotree('setValues', data.data.functionIds.split(","));
+            				/* if (data.data.roleIdString.length > 0) {
+            					$('#roleIdString').combobox('setValues', data.data.roleIdString.split(","));
+            				} */
+			                url = '../../sys/role/edit?id=' + id;
+            			} else {
+            				alert(data.message);
+            			}
+            		} 
+            	});
+                // $('#fm').form('load',row);
+            } else {
+            	showError("请选中一条记录");
+            }
+        }
+        
+        function getFunctionIds() {
+        	var tree = $('#auth').combotree('tree');
+        	var nodes = tree.tree('getChecked', ['checked','indeterminate']);
+        	var temp = [];
+        	$.each(nodes, function(index, element) {
+        		temp.push(element.id);
+        	});
+        	return temp.join(",");
+        }
+        
+        function saverole(){
+        	var name = $("#name").val();
+        	var code = $("#code").val();
+        	var functionIds = getFunctionIds();
+        	// var roleIdString = $('#roleIdString').combotree('getValue');
+        	
+        	if (name == "") {showError("请输入角色名称"); return;}
+        	if (code == "") {showError("请输入角色编码"); return;}
+        	if (functionIds == "") {showError("请配置角色权限"); return;}
+        	
+        	$.ajax({
+        		url : url, 
+        		type : "post",
+        		dataType: "json",
+        		data: {
+        			"name": name,
+        			"code": code,
+        			"functionIds": functionIds
+        		},
+        		success: function(data) {
+        			if (data.success) {
+        				$('#dlg').dialog('close');        // close the dialog
+                        $('#dg').datagrid('reload');    // reload the role data
+        			} else {
+        				showError(data.message);
+        			}
+        		}
+        	});
+            /* $('#fm').form('submit',{
+                url: url,
+                onSubmit: function(){
+                    return $(this).form('validate');
+                },
+                success: function(result){
+                    var result = eval('('+result+')');
+                    if (result.errorMsg){
+                        $.messager.show({
+                            title: 'Error',
+                            msg: result.errorMsg
+                        });
+                    } else {
+                        $('#dlg').dialog('close');        // close the dialog
+                        $('#dg').datagrid('reload');    // reload the role data
+                    }
+                }
+            }); */
+        }
+        
+        function showError(message) {
+        	$.messager.alert({
+                title: '错误',
+                msg: message
+            });
+        }
+        
+        function deleterole(id){
+            if (id){
+                $.messager.confirm('确认','是否确认删除角色?',function(r){
+                    if (r){
+                        $.post('../../sys/role/delete?roleIds=' + id,{},function(result){
+                            if (result.success){
+                                $('#dg').datagrid('reload');    // reload the role data
+                            } else {
+                                showError(result.message)
+                            }
+                        },'json');
+                    }
+                });
+            } else {
+            	showError("请选中一条记录");
+            }
+        }
+        
+    </script>
+</body>
+</html>
